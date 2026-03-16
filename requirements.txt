@@ -1,5 +1,4 @@
 google-genai
 python-dotenv
-pathlib
 flask
-jinja2
+flake8
