@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="light" lang="da"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#144bb8",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "neutral-light": "#e2e8f0",
+                        "neutral-dark": "#1e293b",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased h-screen overflow-hidden">
+<div class="flex h-full flex-col">
+<!-- Top Navigation -->
+<header class="flex h-14 items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 shrink-0">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<div class="flex size-8 items-center justify-center rounded bg-primary text-white">
+<span class="material-symbols-outlined text-xl">account_tree</span>
+</div>
+<h2 class="text-sm font-bold tracking-tight uppercase">Kilde- &amp; Konfigurationsstyring</h2>
+</div>
+<nav class="hidden md:flex items-center gap-4 text-xs font-medium uppercase tracking-widest text-slate-500">
+<a class="hover:text-primary transition-colors" href="#">Dashboard</a>
+<span class="h-4 w-px bg-slate-200 dark:bg-slate-800"></span>
+<a class="text-primary" href="#">Konfiguration</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-center max-w-xl px-10">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full h-9 bg-slate-100 dark:bg-slate-800 border-none rounded-lg pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary/50 transition-all placeholder:text-slate-400" placeholder="Søg efter trackere, kilder eller logs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex size-9 items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="flex size-9 items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full ring-2 ring-white dark:ring-slate-900"></span>
+</button>
+<div class="h-8 w-px bg-slate-200 dark:bg-slate-800 mx-1"></div>
+<div class="flex items-center gap-3 pl-2">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold leading-none">Erik Nielsen</p>
+<p class="text-[10px] text-slate-500 leading-none mt-1">Senior Admin</p>
+</div>
+<img class="size-8 rounded-full border border-slate-200 dark:border-slate-700" data-alt="User profile photo of a professional man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBFPXHJXjxcloycKHj2LQZVY-lE13bHqMvr-4B3Vk9TSRIbBD9-unUi9TfkJhlEfa_XVz36becc071JLA_XxxzuMpOGhFp-XgtwEy_YMNVvY5z96kWIe5BSr5QZdcnv9g-hAqJErhkoaVtcrSpeFFYd1g0VNnnCSmIdJahCfDVBkyPxxQxXb3q6fpy1Yuw_Vl-kc_S78FXinamQOA0g3j5289OFtIYgUxCqQPmoE9VsPbUatqQElAIeUtp291BzJUip9fdJLahALA"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-72 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col shrink-0">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Aktive Kilder</h3>
+<button class="text-primary hover:text-primary/80 transition-colors">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+</button>
+</div>
+<div class="space-y-1 custom-scrollbar overflow-y-auto max-h-[calc(100vh-280px)]">
+<!-- Sidebar Item Active -->
+<div class="group flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg bg-primary/5 text-primary border border-primary/10 cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-xl">public</span>
+<span class="text-sm font-semibold">Brent-Dubai</span>
+</div>
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+</div>
+<!-- Sidebar Item -->
+<div class="group flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-xl">token</span>
+<span class="text-sm font-medium">TSMC</span>
+</div>
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+</div>
+<div class="group flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-xl">memory</span>
+<span class="text-sm font-medium">NVIDIA GTC</span>
+</div>
+<span class="size-1.5 rounded-full bg-slate-300 dark:bg-slate-700"></span>
+</div>
+<div class="group flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-xl">local_shipping</span>
+<span class="text-sm font-medium">FedEx Global</span>
+</div>
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+</div>
+<div class="group flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 cursor-pointer transition-all">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-xl">sailing</span>
+<span class="text-sm font-medium">Maersk Line</span>
+</div>
+<span class="size-1.5 rounded-full bg-amber-500"></span>
+</div>
+</div>
+</div>
+<div class="mt-auto p-6 border-t border-slate-100 dark:border-slate-800">
+<div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4">
+<p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Systemstatus</p>
+<div class="flex items-center justify-between text-xs mb-3">
+<span class="text-slate-500">API Forbrug</span>
+<span class="font-bold">64%</span>
+</div>
+<div class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[64%]"></div>
+</div>
+</div>
+<button class="w-full mt-4 flex items-center justify-center gap-2 py-2.5 bg-primary text-white rounded-lg text-sm font-bold shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-lg">add</span>
+<span>Tilføj kilde</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col bg-background-light dark:bg-background-dark overflow-hidden">
+<!-- Editor Header -->
+<div class="flex items-center justify-between px-8 py-6">
+<div>
+<nav class="flex items-center gap-2 text-xs text-slate-400 mb-1">
+<a class="hover:text-primary" href="#">Konfiguration</a>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium italic font-serif">trackers.json</span>
+</nav>
+<h1 class="text-3xl font-bold tracking-tight">Rediger trackers.json</h1>
+<p class="text-sm text-slate-500 mt-1 italic font-serif opacity-80">Konfigurer overvågningsparametre for Brent-Dubai kilden</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-lg">history</span>
+<span>Versioner</span>
+</button>
+<button class="flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-bold rounded-lg shadow-sm hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-lg">save</span>
+<span>Gem ændringer</span>
+</button>
+</div>
+</div>
+<!-- JSON Editor Area -->
+<div class="flex-1 px-8 pb-4 overflow-hidden">
+<div class="h-full flex flex-col bg-slate-900 rounded-xl border border-slate-800 shadow-2xl relative overflow-hidden">
+<!-- Code Editor Tabs -->
+<div class="flex items-center bg-slate-800/50 border-b border-slate-700/50 px-4 h-10 shrink-0">
+<div class="flex items-center gap-2 px-4 h-full border-b-2 border-primary bg-slate-900/50 text-xs font-medium text-slate-100 cursor-default">
+<span class="material-symbols-outlined text-sm text-amber-400">description</span>
+                                trackers.json
+                            </div>
+<div class="flex items-center gap-2 px-4 h-full text-xs font-medium text-slate-500 hover:text-slate-300 transition-colors cursor-pointer border-r border-slate-700/50">
+<span class="material-symbols-outlined text-sm">settings_input_component</span>
+                                schema.config
+                            </div>
+</div>
+<!-- Line Numbers and Code -->
+<div class="flex flex-1 overflow-auto custom-scrollbar">
+<div class="w-12 bg-slate-900 border-r border-slate-800 py-4 text-right pr-4 text-[11px] font-mono text-slate-600 select-none leading-relaxed">
+                                1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20
+                            </div>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 p-4 font-mono text-sm leading-relaxed text-slate-300 resize-none overflow-hidden" spellcheck="false">{
+  "source_id": "brent-dubai-001",
+  "name": "Brent-Dubai Futures Monitor",
+  "active": true,
+  "refresh_interval": 300,
+  "trackers": [
+    {
+      "id": "tr_992",
+      "metric": "price_spread",
+      "thresholds": {
+        "critical": 1.25,
+        "warning": 0.85
+      },
+      "notifications": ["email", "webhook"],
+      "tags": ["commodity", "oil", "energy"]
+    },
+    {
+      "id": "tr_995",
+      "metric": "volume_spike",
+      "delta_percentage": 15,
+      "lookback_period": "1h"
+    }
+  ],
+  "metadata": {
+    "region": "ME-North",
+    "priority": "P1"
+  }
+}</textarea>
+</div>
+<!-- Editor Footer -->
+<div class="flex items-center justify-between bg-slate-900 border-t border-slate-800 px-4 h-8 shrink-0 text-[10px] font-mono text-slate-500">
+<div class="flex items-center gap-4">
+<span>Ln 14, Col 24</span>
+<span>UTF-8</span>
+<span>JSON</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="size-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span>Forbundet til Live Engine</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Live Kilde-ekstraktion -->
+<div class="h-56 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex flex-col shrink-0">
+<div class="flex items-center justify-between px-8 h-12 border-b border-slate-100 dark:border-slate-800 shrink-0">
+<div class="flex items-center gap-4">
+<h3 class="text-xs font-bold uppercase tracking-widest text-slate-400">Live Kilde-ekstraktion</h3>
+<div class="flex items-center gap-2 px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 text-[10px] font-bold">
+<span class="size-1.5 rounded-full bg-emerald-500"></span>
+                                AKTIV STREAM
+                            </div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-sm">pause</span>
+                                Pause feed
+                            </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-bold text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                                Eksportér logs
+                            </button>
+</div>
+</div>
+<div class="flex-1 overflow-auto custom-scrollbar p-6 bg-slate-50 dark:bg-slate-900/50">
+<div class="space-y-2 font-mono text-[11px] leading-tight">
+<div class="flex gap-4 group">
+<span class="text-slate-400 shrink-0">[14:22:01.442]</span>
+<span class="text-primary font-bold shrink-0">INFO</span>
+<span class="text-slate-600 dark:text-slate-300">Henter data fra Brent-Dubai API endpoint: /v2/market/spreads</span>
+</div>
+<div class="flex gap-4 group">
+<span class="text-slate-400 shrink-0">[14:22:01.890]</span>
+<span class="text-emerald-500 font-bold shrink-0">DATA</span>
+<span class="text-slate-600 dark:text-slate-300 italic">Spread identificeret: 0.94 USD - Stabil tendens</span>
+</div>
+<div class="flex gap-4 group">
+<span class="text-slate-400 shrink-0">[14:22:02.121]</span>
+<span class="text-primary font-bold shrink-0">INFO</span>
+<span class="text-slate-600 dark:text-slate-300">Tracker tr_992 tærskelværdi checket. Status: OK</span>
+</div>
+<div class="flex gap-4 group">
+<span class="text-slate-400 shrink-0">[14:22:05.551]</span>
+<span class="text-amber-500 font-bold shrink-0">WARN</span>
+<span class="text-slate-600 dark:text-slate-300">Netværkslatens detekteret (+120ms) - Genforsøger i næste interval</span>
+</div>
+<div class="flex gap-4 group">
+<span class="text-slate-400 shrink-0">[14:22:08.902]</span>
+<span class="text-primary font-bold shrink-0">INFO</span>
+<span class="text-slate-600 dark:text-slate-300">Live feed synkroniseret med lokal cache.</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html class="light" lang="da">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,400;1,400&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#144bb8",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "neutral-light": "#e2e8f0",
+                        "neutral-dark": "#1e293b",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased h-screen overflow-hidden">
+<div class="flex h-full flex-col">
+    <header class="flex h-14 items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-6 shrink-0">
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-3">
+                <div class="flex size-8 items-center justify-center rounded bg-primary text-white">
+                    <span class="material-symbols-outlined text-xl">account_tree</span>
+                </div>
+                <h2 class="text-sm font-bold tracking-tight uppercase">Kilde- &amp; Konfigurationsstyring</h2>
+            </div>
+            <nav class="hidden md:flex items-center gap-4 text-xs font-medium uppercase tracking-widest text-slate-500">
+                <a class="hover:text-primary transition-colors" href="{{ url_for('index') }}">Instrumentbræt</a>
+                <span class="h-4 w-px bg-slate-200 dark:bg-slate-800"></span>
+                <a class="text-primary" href="{{ url_for('config') }}">Konfiguration</a>
+            </nav>
+        </div>
+    </header>
+    <div class="flex flex-1 overflow-hidden">
+        <aside class="w-72 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col shrink-0">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Aktive Trackere</h3>
+                </div>
+                <div class="space-y-1 overflow-y-auto">
+                    {% for tracker in trackers %}
+                    <div class="group flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 cursor-pointer transition-all">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-xl">token</span>
+                            <span class="text-sm font-medium">{{ tracker.id }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </aside>
+        <main class="flex-1 flex flex-col bg-background-light dark:bg-background-dark overflow-hidden p-8">
+            <h1 class="text-3xl font-bold tracking-tight mb-6">Rediger trackers.json</h1>
+            <div class="flex-1 bg-slate-900 rounded-xl border border-slate-800 shadow-2xl relative overflow-hidden p-4">
+                <pre class="text-slate-300 font-mono text-sm">{{ trackers | tojson(indent=2) }}</pre>
+            </div>
+        </main>
+    </div>
+</div>
+</body>
+</html>

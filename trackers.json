@@ -1,0 +1,37 @@
+[
+  {
+    "id": "brent_dubai_spread",
+    "kategori": "Economy",
+    "beskrivelse": "Monitorering af prisforskellen mellem Brent (Nordsø) og Dubai crude. Massiv negativ spread indikerer fysisk mangel i Asien og blokade-risiko.",
+    "kilder": ["S&P Global Platts", "Reuters Commodities"],
+    "alarm_kriterier": "Spread < -10 USD (Dubai premium)"
+  },
+  {
+    "id": "tsmc_energi_status",
+    "kategori": "Energy",
+    "beskrivelse": "Monitorering af energiforsyning til TSMC i Taiwan. Blokade af LNG eller strømrationalisering.",
+    "kilder": ["Taipei Times", "MOEA Official Status"],
+    "alarm_kriterier": "Rapporter om strømrationalisering eller LNG-tankere der vendes om."
+  },
+  {
+    "id": "nvidia_supply_chain",
+    "kategori": "Economy",
+    "beskrivelse": "Monitorering af Nvidia leverancer og lagerstatus som proxy for TSMC output.",
+    "kilder": ["Bloomberg Technology", "Digitimes"],
+    "alarm_kriterier": "Antydning af nedjustering i GPU output pga. Taiwan logistik/energi."
+  },
+  {
+    "id": "persian_gulf_escalation",
+    "kategori": "Geopolitical",
+    "beskrivelse": "Monitorering af russisk og iransk aktivitet mod amerikanske/israelske mål i Golfen.",
+    "kilder": ["Al Jazeera English", "OSINT Maritime Trackers"],
+    "alarm_kriterier": "Angreb på radarer, baser eller fly vha. russisk-støttet materiel."
+  },
+  {
+    "id": "ukraine_weaponry_deficit",
+    "kategori": "Geopolitical",
+    "beskrivelse": "Monitorering af våbenleverancer til Ukraine og lagerstatus hos vestlige allierede.",
+    "kilder": ["Defense News", "ISW Reports"],
+    "alarm_kriterier": "Udmeldinger om 'kritisk mangel' eller forsinkelser pga. produktionsstop."
+  }
+]

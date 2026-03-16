@@ -1,0 +1,26 @@
+[
+  {
+    "entitet": "S&P Global Platts",
+    "type": "Data Provider",
+    "status": "Verified",
+    "pålidelighed": 1.0
+  },
+  {
+    "entitet": "Reuters Commodities",
+    "type": "News Agency",
+    "status": "Verified",
+    "pålidelighed": 0.95
+  },
+  {
+    "entitet": "Anonyme kilder",
+    "type": "Extract",
+    "status": "Auto-discov",
+    "pålidelighed": 0.4
+  },
+  {
+    "entitet": "Uspecificeret",
+    "type": "Extract",
+    "status": "Auto-discov",
+    "pålidelighed": 0.4
+  }
+]

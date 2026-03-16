@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html class="light" lang="da">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#144bb8",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "slate-900": "#0f172a",
+                        "slate-100": "#f1f5f9",
+                        "slate-600": "#475569",
+                        "slate-200": "#e2e8f0"
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        body { font-family: 'Manrope', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .mono { font-family: 'JetBrains+Mono', monospace; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); }
+        .dark .glass { background: rgba(17, 22, 33, 0.7); backdrop-filter: blur(10px); }
+        
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(220, 38, 38, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+        .alarm-pulse { animation: pulse-red 2s infinite; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-200">
+<div class="relative flex min-h-screen w-full flex-col">
+    <header class="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-12 py-4">
+        <div class="flex items-center gap-12">
+            <div class="flex items-center gap-3">
+                <div class="text-primary">
+                    <svg class="w-8 h-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
+                    </svg>
+                </div>
+                <h1 class="text-xl font-extrabold tracking-tight uppercase">Intelligens Overblik</h1>
+            </div>
+            <nav class="flex items-center gap-8">
+                <a class="text-xs font-semibold tracking-widest uppercase hover:text-primary transition-colors text-primary" href="{{ url_for('index') }}">Instrumentbræt</a>
+                <a class="text-xs font-semibold tracking-widest uppercase hover:text-primary transition-colors" href="{{ url_for('config') }}">Konfiguration</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-6">
+            <div class="relative hidden sm:block">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+                <input id="search-input" class="bg-slate-200/50 dark:bg-slate-800 border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary w-64" placeholder="Søg i efterretninger..." type="text"/>
+            </div>
+            <button id="profile-btn" class="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center hover:bg-primary/20 transition-colors">
+                <span class="material-symbols-outlined text-primary text-sm">person</span>
+            </button>
+        </div>
+    </header>
+    <main class="flex-1 px-6 md:px-12 py-8 max-w-[1600px] mx-auto w-full">
+        <div class="grid grid-cols-12 gap-8">
+            <div class="col-span-12 lg:col-span-8 space-y-8">
+                <section>
+                    <div class="mb-6 flex items-end justify-between border-b border-slate-200 dark:border-slate-800 pb-2">
+                        <h2 class="text-3xl font-light italic">Kritiske Markedsindikatorer</h2>
+                        <p class="text-xs text-slate-500 uppercase tracking-tighter">Opdateret: {{ now }}</p>
+                    </div>
+                    <div id="tracker-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {% for result in results %}
+                        <div class="tracker-card group relative overflow-hidden bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:shadow-md" data-tracker-id="{{ result.tracker_id | lower }}">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <p class="text-[10px] font-bold text-primary tracking-widest uppercase mb-1">ID: {{ result.tracker_id }}</p>
+                                    <h3 class="text-xl font-semibold">{{ result.tracker_id | replace('_', ' ') | title }}</h3>
+                                </div>
+                                <div class="px-2 py-1 {% if result.status == 'ALARM' %}bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 alarm-pulse{% else %}bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400{% endif %} text-[10px] font-bold rounded uppercase tracking-wider">
+                                    {{ result.status }}
+                                </div>
+                            </div>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
+                                {{ result.aktuel_data }}
+                            </p>
+                            <a href="{{ url_for('report', tracker_id=result.tracker_id) }}" class="block text-center mt-6 w-full py-2 text-xs font-bold uppercase tracking-widest border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Se fuld rapport</a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </section>
+            </div>
+            <div class="col-span-12 lg:col-span-4 space-y-8">
+                <section class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-xl p-6">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">bolt</span>
+                        Live Analyse-feed
+                    </h3>
+                    <div class="space-y-6 max-h-[600px] overflow-y-auto pr-2 no-scrollbar">
+                        {% for item in feed %}
+                        <div class="relative pl-6 border-l-2 border-slate-200 dark:border-slate-800 transition-all hover:border-primary">
+                            <div class="absolute -left-[5px] top-0 w-2 h-2 rounded-full 
+                                {% if item.type == 'ALARM' %}bg-red-500 alarm-pulse
+                                {% elif item.type == 'DEBUNKED' %}bg-amber-500
+                                {% elif item.type == 'CONFIRMED' %}bg-green-500
+                                {% elif item.type == 'SYSTEM' %}bg-slate-400
+                                {% else %}bg-primary{% endif %}"></div>
+                            <p class="text-[10px] text-slate-500 font-bold mb-1 mono uppercase tracking-widest">{{ item.timestamp }} — {{ item.type }}</p>
+                            <h4 class="text-xs font-bold mb-1">{{ item.title }}</h4>
+                            <p class="text-[11px] text-slate-600 dark:text-slate-400 italic">"{{ item.content }}"</p>
+                        </div>
+                        {% else %}
+                        <p class="text-xs text-slate-500 italic">Ingen aktive hændelser...</p>
+                        {% endfor %}
+                    </div>
+                </section>
+                <section class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-xl p-6">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">description</span>
+                        Dagens Briefing
+                    </h3>
+                    {% if results %}
+                    <p class="text-sm leading-relaxed italic text-slate-700 dark:text-slate-300">
+                        "{{ results[0].observation }}"
+                    </p>
+                    {% endif %}
+                </section>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+    // Search Filtering
+    const searchInput = document.getElementById('search-input');
+    const trackerCards = document.querySelectorAll('.tracker-card');
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        trackerCards.forEach(card => {
+            const id = card.getAttribute('data-tracker-id');
+            const title = card.querySelector('h3').textContent.toLowerCase();
+            const content = card.querySelector('p').textContent.toLowerCase();
+            
+            if (id.includes(query) || title.includes(query) || content.includes(query)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+
+    // Profile Interaction
+    const profileBtn = document.getElementById('profile-btn');
+    profileBtn.addEventListener('click', () => {
+        alert('Frimer-Rasmussen Consulting - OSINT Engine\nBruger: Analytiker\nStatus: Online');
+    });
+</script>
+</body>
+</html>

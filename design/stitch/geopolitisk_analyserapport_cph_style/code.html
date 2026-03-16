@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="da"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@300;400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#144bb8",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "earth-gold": "#a38e6d",
+                        "earth-clay": "#4a443f",
+                        "soft-gray": "#e2e8f0"
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .serif-header { font-family: 'Playfair Display', serif; }
+        .manrope-text { font-family: 'Manrope', sans-serif; }
+        .classification-tag { letter-spacing: 0.25em; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark manrope-text text-slate-900 dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 px-6 md:px-20 lg:px-40 py-4 bg-white dark:bg-slate-900">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<span class="material-symbols-outlined text-3xl">policy</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-sm font-bold leading-tight tracking-wider uppercase">Strategisk Analyse</h2>
+</div>
+<div class="flex flex-1 justify-end gap-4 md:gap-8">
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+<button class="flex items-center justify-center rounded-full h-10 w-10 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-slate-200 dark:border-slate-700" data-alt="User profile avatar for executive analyst" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCApcNIyl00NL9qfGyctYvQ87hgkyQzVGH3L3_mRzhp0SAntmS5zYbVwEAn0h9AW3-MDtQH8Dkc_VYR4OI2M_2IGn-r6DLmBAtSw88TmwZyotCApV0q2fo3c4_nlywntKk2RNORPUyKWzlIaS-mGLmlf2tM8NaEyHe3wC5dyUTgHPz5niEpu6EqISu71Xb9PXQ501cSSazKbxJ4Ua6CGOqs61piZnNgUmJjEC1zBbmGjVq0RYkARTVaTIOAH92X08dcdY_JqPxk5nM");'></div>
+</div>
+</header>
+<main class="flex-1 max-w-[1100px] mx-auto w-full px-6 py-12">
+<!-- Classification Header -->
+<div class="text-center mb-16">
+<p class="text-earth-gold dark:text-earth-gold text-xs font-bold uppercase classification-tag mb-4 tracking-[0.4em]">YDERST FORTROLIGT</p>
+<div class="h-[1px] w-24 bg-earth-gold/30 mx-auto mb-10"></div>
+<h1 class="serif-header text-4xl md:text-6xl text-slate-900 dark:text-slate-100 font-light italic mb-4 leading-tight">Geopolitisk Analyserapport:</h1>
+<h2 class="serif-header text-4xl md:text-6xl text-slate-900 dark:text-slate-100 font-bold mb-8">Hormuz-afkoblingen</h2>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium tracking-widest uppercase mb-12">SITUATION REPORT | UDGAVE 04.2024</p>
+<div class="w-full h-[500px] overflow-hidden rounded-lg mb-16 shadow-2xl">
+<div class="w-full h-full bg-center bg-no-repeat bg-cover flex flex-col justify-end" data-alt="Deep blue digital map of global shipping routes" data-location="Strait of Hormuz" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAH-3yC7e93ePbT3z3P5MCZHH7LrIjW8NrQaMgsOmN8UPi21SlbNQ2Stn9CNvkTQQApeTR3_TTZ_T3pPI2yQHzctCjPl4ckTRxmIiXxg_vBfUCOrndB1mJ6RGllzAYoOeS_BojDqIgWf4cRElL3Aysp1TLbge9zoEKtlbxzl-JJbFqpZNemK7905ifmO1MFRZBI5kgX4W3RX15aEj-_uRhVGwIWCZoNVoDXp3EfSzkDVJKsW-VkheixBylXl2CHd3UmeUiwuUNq31g");'>
+<div class="bg-gradient-to-t from-black/80 to-transparent p-12 text-left">
+<span class="text-white/70 text-xs font-bold uppercase tracking-widest mb-2 block">Primært operationsområde</span>
+<h3 class="text-white text-2xl serif-header italic">Strategisk overblik over forsyningskæder i Mellemøsten</h3>
+</div>
+</div>
+</div>
+</div>
+<!-- Content Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-16">
+<!-- Section: Energi-afkoblingsfase -->
+<div class="md:col-span-12 lg:col-span-8">
+<div class="flex items-center gap-4 mb-6">
+<span class="text-primary text-sm font-bold">01</span>
+<div class="h-[1px] w-12 bg-primary/30"></div>
+<h3 class="text-slate-900 dark:text-slate-100 text-2xl serif-header font-bold">Energi-afkoblingsfase</h3>
+</div>
+<div class="space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed text-lg font-light">
+<p>
+                            Markedets volatilitet er nået et kritisk punkt. Vi observerer en historisk udvidelse af <span class="text-primary font-semibold">Brent-Dubai spreadet</span>, hvilket indikerer en fundamental forskydning i den globale råolieforsyning.
+                        </p>
+<p>
+                            Analysen peger på, at hvis forstyrrelserne i Hormuz-strædet fortsætter, vil prisen på råolie uundgåeligt teste modstandsniveauet ved <span class="bg-primary/10 text-primary px-2 py-0.5 rounded font-bold">$140 USD</span> pr. tønde. Denne prisstigning er ikke blot spekulativ, men drevet af de øgede fragtrater og forsikringspræmier for transit gennem konfliktzoner.
+                        </p>
+<blockquote class="border-l-4 border-earth-gold pl-8 py-4 my-10 italic serif-header text-2xl text-slate-600 dark:text-slate-400">
+                            "Den globale økonomi står over for en strukturel rebalancering, hvor energisikkerhed trumfer prismæssig effektivitet."
+                        </blockquote>
+</div>
+</div>
+<!-- Sidebar / Data Panel -->
+<div class="md:col-span-12 lg:col-span-4 space-y-8">
+<div class="bg-white dark:bg-slate-900 p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+<h4 class="text-xs font-bold text-earth-gold uppercase tracking-widest mb-6">Markedsindikatorer</h4>
+<div class="space-y-6">
+<div>
+<p class="text-slate-500 text-xs uppercase mb-1">Brent-Dubai Spread</p>
+<p class="text-2xl font-bold text-slate-900 dark:text-slate-100">+$12.45 <span class="text-red-500 text-sm font-normal">▲ 14%</span></p>
+</div>
+<div class="h-[1px] bg-slate-100 dark:bg-slate-800 w-full"></div>
+<div>
+<p class="text-slate-500 text-xs uppercase mb-1">Målpris (Estimeret)</p>
+<p class="text-2xl font-bold text-slate-900 dark:text-slate-100">$140 USD</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Section: Operationel resiliens -->
+<div class="md:col-span-12">
+<div class="h-[1px] bg-slate-200 dark:bg-slate-800 w-full mb-16"></div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+<div>
+<div class="flex items-center gap-4 mb-6">
+<span class="text-primary text-sm font-bold">02</span>
+<div class="h-[1px] w-12 bg-primary/30"></div>
+<h3 class="text-slate-900 dark:text-slate-100 text-2xl serif-header font-bold">Operationel resiliens</h3>
+</div>
+<div class="space-y-6 text-slate-700 dark:text-slate-300 leading-relaxed text-lg font-light">
+<p>
+                                    Den teknologiske sektor, anført af <span class="font-semibold">TSMC</span>, har iværksat kritiske protokoller for at sikre fortsat drift under energikrisen. TSMC's energistatus er p.t. stabiliseret gennem en kombination af private LNG-reserver og prioriteret adgang til vedvarende kilder.
+                                </p>
+<p>
+                                    Dog er halvlederproduktionen fortsat sårbar over for de sekundære effekter af Hormuz-afkoblingen. Logistiske flaskehalse i Det Sydkinesiske Hav, koblet med energimanglen i Europa, presser den operationelle resiliens til det yderste.
+                                </p>
+</div>
+</div>
+<div class="relative group">
+<div class="absolute -inset-4 bg-primary/5 rounded-xl transition-all group-hover:bg-primary/10"></div>
+<div class="relative bg-white dark:bg-slate-900 p-8 rounded-lg border border-slate-100 dark:border-slate-800">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">bolt</span>
+<h4 class="text-xl serif-header font-bold mb-4">TSMC Energi Status</h4>
+<ul class="space-y-4 text-sm text-slate-600 dark:text-slate-400">
+<li class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-2">
+<span>Selvforsyningsgrad</span>
+<span class="font-bold text-slate-900 dark:text-slate-100">82%</span>
+</li>
+<li class="flex justify-between items-center border-b border-slate-100 dark:border-slate-800 pb-2">
+<span>LNG Lagerkapacitet</span>
+<span class="font-bold text-slate-900 dark:text-slate-100">45 dage</span>
+</li>
+<li class="flex justify-between items-center">
+<span>Risikoniveau</span>
+<span class="px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded text-[10px] font-bold uppercase tracking-tighter">MODERAT</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Details -->
+<footer class="mt-24 pt-12 border-t border-slate-200 dark:border-slate-800 text-center">
+<div class="flex flex-col items-center gap-6">
+<div class="size-12 opacity-30">
+<svg class="text-slate-900 dark:text-slate-100" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<p class="text-slate-400 text-[10px] tracking-[0.3em] uppercase">© 2024 Global Intelligence Insights. Kun til internt brug.</p>
+</div>
+</footer>
+</main>
+</div>
+</div>
+</body></html>
