@@ -7,19 +7,18 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-class Ingestor:
+class IngestionEngine:
     """
-    Fase 1: Støvsugeren (The Vacuum).
-    Udtrækker kyniske rådata fra ustruktureret tekst.
+    Ansvarlig for "The Vacuum": At samle ustruktureret information.
     """
-    def __init__(self, api_key=None, model_id="gemini-1.5-pro"): # Fallback to 1.5 if 3.1 is not avail, but user wants 3.1
+    def __init__(self, api_key=None):
         self.api_key = api_key or os.getenv("GEMINI_API_KEY")
         if not self.api_key:
             raise ValueError("GEMINI_API_KEY must be set in environment or passed to constructor.")
         
-        # In March 2026, we use gemini-3.1-pro-preview
         self.client = genai.Client(api_key=self.api_key)
-        self.model_id = "gemini-3.1-pro-preview" 
+        # In March 2026, we use the centralized PRO model for best reasoning
+        self.model_id = DEFAULT_PRO_MODEL
 
     def vacuum(self, raw_text):
         """

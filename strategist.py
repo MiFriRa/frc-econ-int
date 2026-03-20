@@ -5,9 +5,11 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv
 
+from config import DEFAULT_PRO_MODEL
+
 load_dotenv()
 
-class Strategist:
+class StrategistEngine:
     """
     Fase 4: Strategic Implications Matrix.
     Syntetiserer OSINT-fund til høj-niveau strategiske konsekvenser.
@@ -15,7 +17,7 @@ class Strategist:
     def __init__(self, api_key=None):
         self.api_key = api_key or os.getenv("GEMINI_API_KEY")
         self.client = genai.Client(api_key=self.api_key)
-        self.model_id = "gemini-3.1-pro-preview"
+        self.model_id = DEFAULT_PRO_MODEL
 
     def analyze(self, scout_results, feed_items, hypothesis):
         """

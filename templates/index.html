@@ -12,8 +12,10 @@
                 extend: {
                     colors: {
                         "primary": "#144bb8",
-                        "background-light": "#f6f6f8",
-                        "background-dark": "#111621",
+                        "ink-black": "#050505",
+                        "paper-white": "#fdfdfd",
+                        "background-light": "#fdfdfd",
+                        "background-dark": "#050505",
                         "slate-900": "#0f172a",
                         "slate-100": "#f1f5f9",
                         "slate-600": "#475569",
@@ -42,33 +44,57 @@
             100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
         }
         .alarm-pulse { animation: pulse-red 2s infinite; }
+
+        @media print {
+            header, footer, nav, #search-input, button, .no-print, .relative::after { display: none !important; }
+            body { background: white !important; color: black !important; padding: 0 !important; margin: 0 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            main { padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: 100% !important; display: block !important; }
+            .col-span-12, .lg:col-span-8, .lg:col-span-4 { width: 100% !important; grid-column: span 12 / span 12 !important; }
+            .tracker-card { border: 1px solid #333 !important; break-inside: avoid; background: white !important; color: black !important; margin-bottom: 2rem !important; padding: 1rem !important; box-shadow: none !important; }
+            div, h1, h2, h3, h4, h5, p, span, a { color: black !important; background: transparent !important; box-shadow: none !important; text-shadow: none !important; }
+            .text-red-500, .text-red-600, .text-red-400, .border-red-600 { color: #b91c1c !important; border-color: #b91c1c !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .text-primary, .border-primary, .border-l-8 { color: #144bb8 !important; border-color: #144bb8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .font-black, .font-bold { font-weight: 900 !important; }
+            img, svg { max-width: 100% !important; }
+            .grid { display: block !important; }
+            .grid > div { margin-bottom: 2rem !important; }
+        }
     </style>
 </head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-200">
+<body class="bg-paper-white dark:bg-ink-black text-ink-black dark:text-paper-white transition-colors duration-200">
 <div class="relative flex min-h-screen w-full flex-col">
-    <header class="sticky top-0 z-50 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-12 py-4">
-        <div class="flex items-center gap-12">
-            <div class="flex items-center gap-3">
-                <div class="text-primary">
+    <header class="sticky top-0 z-50 flex items-center justify-between border-b-4 border-ink-black dark:border-slate-800 bg-paper-white/95 dark:bg-ink-black/95 backdrop-blur-md px-6 md:px-12 py-6">
+        <div class="flex items-center gap-16">
+            <div class="flex items-center gap-4">
+                <div class="text-primary p-1 border-2 border-primary">
                     <svg class="w-8 h-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                         <path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="currentColor"></path>
                     </svg>
                 </div>
-                <h1 class="text-xl font-extrabold tracking-tight uppercase">Intelligens Overblik</h1>
+                <div>
+                    <h1 class="text-2xl font-black tracking-tighter uppercase leading-none">INTELLIGENS OVERBLIK</h1>
+                    <p class="text-[9px] font-black tracking-[0.4em] text-slate-500 uppercase mt-1">FRC OSINT ENGINE v3.1</p>
+                </div>
             </div>
-            <nav class="flex items-center gap-8">
-                <a class="text-xs font-semibold tracking-widest uppercase hover:text-primary transition-colors text-primary" href="{{ url_for('index') }}">Instrumentbræt</a>
-                <a class="text-xs font-semibold tracking-widest uppercase hover:text-primary transition-colors" href="{{ url_for('config') }}">Konfiguration</a>
+            <nav class="hidden lg:flex items-center gap-10">
+                <a class="text-[11px] font-black tracking-[0.3em] uppercase hover:text-primary transition-colors text-primary border-b-2 border-primary pb-1" href="{{ url_for('index') }}">INSTRUMENTBRÆT</a>
+                <a class="text-[11px] font-black tracking-[0.3em] uppercase hover:text-primary transition-colors opacity-40 hover:opacity-100" href="{{ url_for('config') }}">KONFIGURATION</a>
             </nav>
         </div>
-        <div class="flex items-center gap-6">
-            <div class="relative hidden sm:block">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
-                <input id="search-input" class="bg-slate-200/50 dark:bg-slate-800 border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary w-64" placeholder="Søg i efterretninger..." type="text"/>
+        <div class="flex items-center gap-8">
+            <div class="relative hidden xl:block">
+                <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 text-sm">search</span>
+                <input id="search-input" class="bg-slate-100 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-none pl-12 pr-6 py-3 text-xs font-bold tracking-widest focus:border-primary outline-none w-80 transition-all uppercase placeholder:text-slate-400" placeholder="SØG I EFTERRETNINGER..." type="text"/>
             </div>
-            <button id="profile-btn" class="w-8 h-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center hover:bg-primary/20 transition-colors">
-                <span class="material-symbols-outlined text-primary text-sm">person</span>
-            </button>
+            <div class="flex items-center gap-4">
+                <button onclick="window.print()" class="flex items-center gap-2 px-4 py-2 bg-ink-black text-paper-white dark:bg-paper-white dark:text-ink-black text-[10px] font-black uppercase tracking-widest hover:bg-primary dark:hover:bg-primary dark:hover:text-white transition-all">
+                    <span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+                    EKSPORTER PDF
+                </button>
+                <button id="profile-btn" class="w-10 h-10 bg-slate-100 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                    <span class="material-symbols-outlined font-black">dark_mode</span>
+                </button>
+            </div>
         </div>
     </header>
     <main class="flex-1 px-6 md:px-12 py-8 max-w-[1600px] mx-auto w-full">
@@ -79,63 +105,191 @@
                         <h2 class="text-3xl font-light italic">Kritiske Markedsindikatorer</h2>
                         <p class="text-xs text-slate-500 uppercase tracking-tighter">Opdateret: {{ now }}</p>
                     </div>
-                    <div id="tracker-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {% for result in results %}
-                        <div class="tracker-card group relative overflow-hidden bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm transition-all hover:shadow-md" data-tracker-id="{{ result.tracker_id | lower }}">
-                            <div class="flex justify-between items-start mb-4">
-                                <div>
-                                    <p class="text-[10px] font-bold text-primary tracking-widest uppercase mb-1">ID: {{ result.tracker_id }}</p>
-                                    <h3 class="text-xl font-semibold">{{ result.tracker_id | replace('_', ' ') | title }}</h3>
+
+                    <!-- THE KILLER COCKTAIL (MACRO CONVERGENCE) -->
+                    {% if macro_convergence %}
+                    <div class="mb-10 bg-ink-black border-l-8 border-red-600 p-10 relative overflow-hidden group shadow-[0_35px_60px_-15px_rgba(220,38,38,0.4)]">
+                        <div class="absolute top-0 right-0 p-6 opacity-10 transition-opacity">
+                            <span class="material-symbols-outlined text-9xl text-red-600 font-extrabold">warning</span>
+                        </div>
+                        
+                        <div class="relative z-10 mb-10 pb-10 border-b border-red-900/50">
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="text-[11px] font-black uppercase tracking-[0.4em] text-red-500 flex items-center gap-2">
+                                    MACRO CONVERGENCE DETEKTERET
+                                </h3>
+                                <span class="text-[9px] font-black text-slate-500 uppercase tracking-widest">VERIFICERET: {{ now[:10] }}</span>
+                            </div>
+                            <h4 class="text-5xl font-black tracking-tighter text-paper-white mb-8 uppercase">{{ macro_convergence.cocktail_name }}</h4>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="p-8 bg-red-600 text-paper-white border-2 border-red-500 shadow-2xl">
+                                    <h5 class="text-[10px] font-black uppercase tracking-[0.3em] text-paper-white mb-3 opacity-80">1. NATIONAL SIKKERHED (EU / DANMARK / NATO)</h5>
+                                    <p class="text-lg font-black leading-tight">{{ macro_convergence.strategic_recommendation_geopolitical }}</p>
                                 </div>
-                                <div class="px-2 py-1 {% if result.status == 'ALARM' %}bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 alarm-pulse{% else %}bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400{% endif %} text-[10px] font-bold rounded uppercase tracking-wider">
-                                    {{ result.status }}
+                                <div class="p-8 bg-ink-black text-paper-white border-2 border-slate-800 shadow-2xl">
+                                    <h5 class="text-[10px] font-black uppercase tracking-[0.3em] text-red-500 mb-3">2. AKTIEINVESTOR PERSPEKTIV</h5>
+                                    <p class="text-lg font-black leading-tight">{{ macro_convergence.strategic_recommendation_investor }}</p>
+                                    <p class="text-[9px] font-bold text-slate-500 mt-4 border-t border-slate-800 pt-2 uppercase tracking-wider">BEMÆRK: KRÆVER PORTEFØLJE-KONTEKST FOR PRÆCIS RÅDGIVNING</p>
                                 </div>
                             </div>
-                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
-                                {{ result.aktuel_data }}
-                            </p>
-                            <a href="{{ url_for('report', tracker_id=result.tracker_id) }}" class="block text-center mt-6 w-full py-2 text-xs font-bold uppercase tracking-widest border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">Se fuld rapport</a>
+                            {% if macro_convergence.kilde_url %}
+                            <div class="mt-8 pt-6 border-t border-red-900/30 flex items-center justify-between">
+                                <span class="text-[10px] font-black text-red-500 uppercase tracking-[0.3em]">PRIMÆR KILDE-PROVENANCE:</span>
+                                <a href="{{ macro_convergence.kilde_url }}" target="_blank" class="text-[11px] font-black text-paper-white hover:text-red-400 underline uppercase tracking-tighter transition-colors">{{ macro_convergence.kilde_url.split('/')[2] if '/' in macro_convergence.kilde_url else 'LINK' }}</a>
+                            </div>
+                            {% endif %}
                         </div>
-                        {% endfor %}
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
+                            <div class="space-y-8">
+                                <div class="p-6 bg-slate-900/40 border border-slate-800/50">
+                                    <h5 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">KONTEKST (WHY?)</h5>
+                                    <p class="text-lg font-bold text-slate-100 italic leading-relaxed">"{{ macro_convergence.outlook_2026_2027 }}"</p>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="p-5 bg-red-950/20 border border-red-900/30">
+                                    <h5 class="text-[10px] font-black uppercase tracking-[0.2em] text-red-400 mb-2">SITUATION (CAUSE A)</h5>
+                                    <p class="text-xs text-paper-white font-medium leading-relaxed">{{ macro_convergence.scqa_situation }}</p>
+                                </div>
+                                <div class="p-5 bg-red-900/20 border border-red-800/30">
+                                    <h5 class="text-[10px] font-black uppercase tracking-[0.2em] text-red-500 mb-2">COMPLICATION (CAUSE B)</h5>
+                                    <p class="text-xs text-paper-white font-medium leading-relaxed">{{ macro_convergence.scqa_complication }}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </section>
-            </div>
-            <div class="col-span-12 lg:col-span-4 space-y-8">
-                <section class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-xl p-6">
-                    <h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-sm">bolt</span>
-                        Live Analyse-feed
-                    </h3>
-                    <div class="space-y-6 max-h-[600px] overflow-y-auto pr-2 no-scrollbar">
-                        {% for item in feed %}
-                        <div class="relative pl-6 border-l-2 border-slate-200 dark:border-slate-800 transition-all hover:border-primary">
-                            <div class="absolute -left-[5px] top-0 w-2 h-2 rounded-full 
-                                {% if item.type == 'ALARM' %}bg-red-500 alarm-pulse
-                                {% elif item.type == 'DEBUNKED' %}bg-amber-500
-                                {% elif item.type == 'CONFIRMED' %}bg-green-500
-                                {% elif item.type == 'SYSTEM' %}bg-slate-400
-                                {% else %}bg-primary{% endif %}"></div>
-                            <p class="text-[10px] text-slate-500 font-bold mb-1 mono uppercase tracking-widest">{{ item.timestamp }} — {{ item.type }}</p>
-                            <h4 class="text-xs font-bold mb-1">{{ item.title }}</h4>
-                            <p class="text-[11px] text-slate-600 dark:text-slate-400 italic">"{{ item.content }}"</p>
+                    {% endif %}
+
+                    <!-- Strategic BLUF: Executive Summary -->
+                    <div class="mb-10 bg-slate-950 border-l-8 border-primary p-10 text-paper-white shadow-2xl relative overflow-hidden group border-2 border-slate-900">
+                        <div class="absolute top-0 right-0 p-6 opacity-20">
+                            <span class="material-symbols-outlined text-8xl font-black text-primary">analytics</span>
+                        </div>
+                        <h3 class="text-[11px] font-black uppercase tracking-[0.4em] text-primary mb-6 flex items-center gap-2">
+                            STRATEGIC IMPLICATIONS MATRIX (BLUF)
+                        </h3>
+                        {% if scenario_analyses %}
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                            {% for scenario in scenario_analyses[:3] %}
+                            <div class="space-y-6 border-r border-slate-900 pr-8 last:border-0 last:pr-0">
+                                <div>
+                                    <h4 class="text-[11px] font-black uppercase tracking-widest text-primary mb-2 mb-2 p-1 bg-primary/10 inline-block tracking-tighter">{{ scenario.trigger_commodity }}</h4>
+                                    <h5 class="text-lg font-black tracking-tight text-paper-white leading-tight uppercase">{{ scenario.event }}</h5>
+                                </div>
+                                <p class="text-sm font-medium text-slate-300 leading-relaxed border-l-2 border-primary/30 pl-4 py-1">
+                                    {{ scenario.intelligence_brief }}
+                                </p>
+                                <div class="pt-6 space-y-4 border-t border-slate-900 mt-6">
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-primary font-bold text-[10px] mt-0.5">1.</span>
+                                        <p class="text-[11px] text-slate-300 leading-relaxed">{{ scenario.first_order_effect.description }}</p>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-primary font-bold text-[10px] mt-0.5">2.</span>
+                                        <p class="text-[11px] text-slate-300 leading-relaxed">{{ scenario.second_order_effect.description }}</p>
+                                    </div>
+                                    <div class="flex items-start gap-2">
+                                        <span class="text-primary font-bold text-[10px] mt-0.5">3.</span>
+                                        <p class="text-[11px] text-slate-300 leading-relaxed">{{ scenario.third_order_effect.description }}</p>
+                                    </div>
+                                </div>
+                                <div class="pt-3 border-t border-slate-800/50 mt-3">
+                                    <p class="text-[11px] font-medium text-amber-200 leading-relaxed">
+                                        <span class="text-amber-500 font-bold mr-1">Konklusion:</span> {{ scenario.strategic_implication }}
+                                    </p>
+                                </div>
+                                {% if scenario.primary_sources %}
+                                <div class="mt-4 pt-3 border-t border-slate-900">
+                                    <h6 class="text-[8px] font-black text-slate-500 uppercase tracking-widest mb-2">VERIFICERET KILDE-GRUNDLAG ({{ now[:10] }})</h6>
+                                    <div class="flex flex-wrap gap-1.5">
+                                        {% for src in scenario.primary_sources %}
+                                        <span class="text-[8px] font-bold bg-slate-900 text-slate-400 px-1.5 py-0.5 border border-slate-800 uppercase tracking-tighter">{{ src }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
                         </div>
                         {% else %}
-                        <p class="text-xs text-slate-500 italic">Ingen aktive hændelser...</p>
+                        <p class="text-sm text-slate-400 italic">Ingen kritiske pris-chok opdaget i dagens 'Commodity Pulse'. Alt er indenfor historisk normal-spektrum.</p>
+                        {% endif %}
+                    </div>
+                    <div id="tracker-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {% for result in results %}
+                        <div class="tracker-card group bg-paper-white dark:bg-ink-black p-8 border-2 border-slate-200 dark:border-slate-900 shadow-xl transition-all hover:border-primary" data-tracker-id="{{ result.tracker_id | lower }}">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <p class="text-[10px] font-black text-primary tracking-[0.3em] uppercase mb-2">REF: {{ result.tracker_id }}</p>
+                                    <h3 class="text-3xl font-black tracking-tighter uppercase leading-none">{{ result.tracker_id | replace('_', ' ') }}</h3>
+                                </div>
+                                 <div class="text-right">
+                                    <div class="px-4 py-1.5 {% if result.status == 'ALARM' %}bg-red-600 text-paper-white alarm-pulse{% else %}bg-ink-black text-paper-white dark:bg-paper-white dark:text-ink-black border border-current{% endif %} text-[11px] font-black uppercase tracking-widest">
+                                        {{ result.status }}
+                                    </div>
+                                    <div class="mt-2 text-[9px] font-black text-slate-500 uppercase tracking-widest">VERIFICERET: {{ now[:10] }}</div>
+                                </div>
+                            </div>
+                            <div class="p-5 bg-slate-50 dark:bg-slate-900/50 border-l-4 border-primary">
+                                <h5 class="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1 italic">AKTUEL OBSERVATION</h5>
+                                <p class="text-sm font-bold text-ink-black dark:text-paper-white leading-relaxed">
+                                    {{ result.aktuel_data }}
+                                </p>
+                                {% if result.kilde_url %}
+                                <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest">PROVENANCE:</span>
+                                    <a href="{{ result.kilde_url }}" target="_blank" class="text-[9px] font-bold text-primary hover:underline uppercase tracking-tighter truncate max-w-[200px]">{{ result.kilde_url.split('/')[2] if '/' in result.kilde_url else result.kilde_url }}</a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            <a href="{{ url_for('report', tracker_id=result.tracker_id) }}" class="block text-center mt-8 w-full py-4 text-[11px] font-black uppercase tracking-[0.4em] bg-ink-black text-paper-white dark:bg-paper-white dark:text-ink-black hover:bg-primary dark:hover:bg-primary dark:hover:text-paper-white transition-colors">VIS FULD RAPPORT</a>
+                        </div>
                         {% endfor %}
                     </div>
                 </section>
-                <section class="bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-xl p-6">
-                    <h3 class="text-xs font-bold uppercase tracking-widest text-primary mb-4 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-sm">description</span>
-                        Dagens Briefing
-                    </h3>
-                    {% if results %}
-                    <p class="text-sm leading-relaxed italic text-slate-700 dark:text-slate-300">
-                        "{{ results[0].observation }}"
-                    </p>
-                    {% endif %}
+
+                {% if youtube_results %}
+                <section class="mt-20 no-print border-t-4 border-slate-100 dark:border-slate-900 pt-16">
+                    <div class="mb-10 flex items-end justify-between border-b-2 border-slate-200 dark:border-slate-800 pb-2">
+                        <div>
+                            <h2 class="text-3xl font-black tracking-tighter uppercase leading-none">YOUTUBE OSINT VERIFICERINGER</h2>
+                            <p class="text-[10px] font-black tracking-[0.4em] text-slate-500 uppercase mt-2">RAA INDSIGTER FRA VISUEL ANALYSE</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {% for yt in youtube_results %}
+                        <div class="tracker-card bg-paper-white dark:bg-ink-black p-10 border-2 border-slate-200 dark:border-slate-900 shadow-2xl hover:border-primary transition-all group">
+                            <div class="flex justify-between items-start mb-8 pb-4 border-b-2 border-slate-100 dark:border-slate-900">
+                                <h3 class="text-xl font-black tracking-tight uppercase">{{ yt.tracker_name }}</h3>
+                                <div class="px-3 py-1.5 {% if yt.verification_status == 'VERIFIED' %}bg-green-600 text-paper-white{% elif yt.verification_status == 'DEBUNKED' %}bg-red-600 text-paper-white{% else %}bg-ink-black text-paper-white dark:bg-paper-white dark:text-ink-black{% endif %} text-[11px] font-black uppercase tracking-widest">
+                                    {{ yt.verification_status }}
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <div>
+                                    <h5 class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2">EVIDENS OG KONTEKST</h5>
+                                    <p class="text-sm font-medium text-ink-black dark:text-paper-white leading-relaxed">
+                                        {{ yt.evidence }}
+                                    </p>
+                                </div>
+                                <div class="flex items-end justify-end">
+                                    {% if yt.source_url %}
+                                    <a href="{{ yt.source_url }}" target="_blank" class="w-full flex items-center justify-center gap-2 py-4 bg-slate-100 dark:bg-slate-900 text-[11px] font-black uppercase tracking-widest hover:bg-primary hover:text-paper-white transition-all">
+                                        <span class="material-symbols-outlined text-sm">link</span>
+                                        KILDE
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </section>
+                {% endif %}
             </div>
+
         </div>
     </main>
     <footer class="mt-auto px-6 md:px-12 py-8 border-t border-slate-200 dark:border-slate-800 text-center">
@@ -148,14 +302,18 @@
 <script>
     // Search Filtering
     const searchInput = document.getElementById('search-input');
-    const trackerCards = document.querySelectorAll('.tracker-card');
-
+    
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase();
+        const trackerCards = document.querySelectorAll('.tracker-card');
+        
         trackerCards.forEach(card => {
-            const id = card.getAttribute('data-tracker-id');
-            const title = card.querySelector('h3').textContent.toLowerCase();
-            const content = card.querySelector('p').textContent.toLowerCase();
+            const h3 = card.querySelector('h3');
+            const p = card.querySelector('p');
+            
+            const title = h3 ? h3.textContent.toLowerCase() : "";
+            const content = p ? p.textContent.toLowerCase() : "";
+            const id = card.getAttribute('data-tracker-id') || "";
             
             if (id.includes(query) || title.includes(query) || content.includes(query)) {
                 card.style.display = 'block';
@@ -165,10 +323,11 @@
         });
     });
 
-    // Profile Interaction
+    // Interaction & Theme
     const profileBtn = document.getElementById('profile-btn');
     profileBtn.addEventListener('click', () => {
-        alert('Frimer-Rasmussen Consulting - OSINT Engine\nBruger: Analytiker\nStatus: Online');
+        document.documentElement.classList.toggle('dark');
+        console.log('Theme toggled');
     });
 </script>
 </body>

@@ -12,8 +12,9 @@
 This engine automates the intelligence lifecycle through three distinct phases:
 
 1.  **Scout (Detection)**: Uses Google Search Grounding to monitor trackers defined in `trackers.json`.
-2.  **Vacuum (Extraction)**: Distills raw text into structured claims, stripping away journalistic bias.
-3.  **Truth Check (Verification)**: Cross-references claims directly against official entities and primary sources.
+2.  **YouTube Scout (Visual Detection)**: Directly analyzes YouTube video content using Gemini Flash Lite for rapid identification of emerging geopolitical trends.
+3.  **Vacuum (Extraction)**: Distills raw text and visual insights into structured claims, stripping away journalistic bias.
+4.  **Truth Check (Verification)**: Cross-references claims directly against official entities and primary sources using Search Grounding.
 
 ## 🎛️ Architecture
 
@@ -49,6 +50,12 @@ pip install -r requirements.txt
 ```powershell
 # Run the OSINT Engine
 python engine.py
+
+# Run the YouTube Scout (Sequential & Robust)
+python youtube_scout.py
+
+# Run the Verification Bridge (Truth Check for YouTube data)
+python verify_youtube_insights.py
 
 # Start the Intelligence Dashboard
 python app.py

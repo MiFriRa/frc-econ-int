@@ -1,19 +1,25 @@
 import os
 import json
+import logging
 from pathlib import Path
 from datetime import datetime
-from google import genai
-from google.genai import types
 from dotenv import load_dotenv
-from ingestion import Ingestor
-from verification import Verifier
+
+from config import DEFAULT_PRO_MODEL
+from ingestion import IngestionEngine
+from verification import VerificationEngine
+from strategist import StrategistEngine
+from grounding_service import GroundingService
+
+# Setup basic logging
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - [%(levelname)s] - %(message)s")
 
 # Load environment variables
 load_dotenv()
 
-# Initialize Gemini Client
-client = genai.Client()
-MODEL_NAME = "gemini-3.1-pro-preview" 
+# Initialize Services
+grounding = GroundingService()
+TRACKERS_FILE = 'trackers.json'
 
 def load_json_file(filepath: Path) -> list:
     """Universel funktion til at indlæse trackers og kilder."""
@@ -63,8 +69,8 @@ def run_full_pipeline(trackers_file: str = "trackers.json"):
         logger.log("ERROR", "Ingen trackers", "Tilføj opgaver til trackers.json.")
         return []
 
-    ingestor = Ingestor()
-    verifier = Verifier()
+    ingestor = IngestionEngine()
+    verifier = VerificationEngine(grounding=grounding)
     final_results = []
     
     for tracker in trackers:
@@ -78,33 +84,10 @@ def run_full_pipeline(trackers_file: str = "trackers.json"):
         Alarmkriterie: {tracker['alarm_kriterier']}
         """
         
-        config = types.GenerateContentConfig(
-            system_instruction=system_instruction,
-            response_mime_type="application/json",
-            tools=[{"google_search": {}}] 
-        )
-        
         prompt = f"Hent status for {tracker['id']}. Vurder mod: {tracker['alarm_kriterier']}. Returner JSON med tracker_id, status, aktuel_data, kilde_url, observation."
         
         try:
-            response = client.models.generate_content(
-                model=MODEL_NAME,
-                contents=prompt,
-                config=config
-            )
-            
-            raw_text = response.text.strip()
-            # Clean up potential markdown formatting if model ignores mime type
-            if raw_text.startswith("```json"):
-                raw_text = raw_text.replace("```json", "", 1).replace("```", "", 1).strip()
-            elif raw_text.startswith("```"):
-                raw_text = raw_text.replace("```", "", 1).replace("```", "", 1).strip()
-
-            scout_data = json.loads(raw_text)
-            
-            # Handle list response if it happens
-            if isinstance(scout_data, list) and len(scout_data) > 0:
-                scout_data = scout_data[0]
+            scout_data = grounding.query(prompt, system_instruction=system_instruction)
             
             if scout_data.get('status') == 'ALARM':
                 logger.log("ALARM", f"Kritisk fund i {tracker['id']}", scout_data.get('observation'))

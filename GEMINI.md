@@ -15,7 +15,11 @@ Dette er en autonom, konfigurationsdrevet OSINT-motor designet til at overvåge 
 Vi adskiller **motoren** fra **intelligensen**:
 - `trackers.json`: Definition af hvad der skal overvåges.
 - `verified_sources.json`: Verificerede kilder.
-- **Python Scripts**: Agnostiske funktioner der læser JSON og udfører Search Grounding.
+- **Python Scripts**: 
+  - `engine.py`: Orchestrering af Search Grounding.
+  - `youtube_scout.py`: Robust, sekventiel analyse af YouTube videoer.
+  - `verify_youtube_insights.py`: Bro fra visuelle indsigter til sandhedstjek.
+  - `verification.py`: Kerne-logik for Search Grounding verificering.
 
 ## Windows 11 Udvikling
 - Brug altid PowerShell-kompatible kommandoer.
